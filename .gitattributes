@@ -1,0 +1,13 @@
+# Normaliza los finales de línea del código fuente
+* text=auto eol=lf
+
+# Archivos binarios: Git no debe tocarlos (se corromperían)
+*.pdf   binary
+*.docx  binary
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.gif   binary
+*.ico   binary
+*.woff  binary
+*.woff2 binary
