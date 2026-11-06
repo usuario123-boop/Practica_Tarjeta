@@ -25,12 +25,6 @@ import { CLIENTES, aPesos, severidadEstado } from '@/constants/demo'
 
 // Contenedores de PrimeVue para organizar el contenido
 const pestana = ref('0')
-const menuPanel = ref([
-  { label: 'Actualizar', icon: 'pi pi-refresh' },
-  { label: 'Exportar', icon: 'pi pi-upload' },
-  { separator: true },
-  { label: 'Eliminar', icon: 'pi pi-trash' }
-])
 const iniciales = (nombre) => nombre.split(' ').slice(0, 2).map(p => p[0]).join('')
 </script>
 

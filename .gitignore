@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Reportes de la practica (se entregan por separado, no van en el repositorio)
+docs/
