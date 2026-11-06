@@ -1,70 +1,86 @@
 <script setup>
 import { computed } from 'vue'
 import Button from 'primevue/button'
-import TarjetaDigital from '../components/TarjetaDigital.vue'
-import { empleados } from '../store'
+import StatCard from '@/components/dashboard/StatCard.vue'
+import TarjetaDigital from '@/components/tarjeta/TarjetaDigital.vue'
+import EmpleadoAvatar from '@/components/empleado/EmpleadoAvatar.vue'
+import { useEmpleados } from '@/composables/useEmpleados'
+import { EMPLEADO_EJEMPLO } from '@/constants/empleado'
 
-const ultimo = computed(() => empleados.value[0])
-const hoy = computed(() => {
-  const d = new Date().toDateString()
-  return empleados.value.filter(e => new Date(e.creado).toDateString() === d).length
-})
+const { empleados, estadisticas } = useEmpleados()
 
-const tarjetas = computed(() => [
-  { titulo: 'Tarjetas generadas', valor: empleados.value.length, icono: 'pi pi-id-card', color: '#2563eb', fondo: '#dbeafe' },
-  { titulo: 'Generadas hoy', valor: hoy.value, icono: 'pi pi-calendar', color: '#16a34a', fondo: '#dcfce7' },
-  { titulo: 'Códigos QR', valor: empleados.value.length, icono: 'pi pi-qrcode', color: '#9333ea', fondo: '#f3e8ff' },
-  { titulo: 'Con fotografía', valor: empleados.value.filter(e => e.foto).length, icono: 'pi pi-camera', color: '#ea580c', fondo: '#ffedd5' }
+const recientes = computed(() => empleados.value.slice(0, 5))
+const ultimo = computed(() => empleados.value[0] || null)
+
+const indicadores = computed(() => [
+  { titulo: 'Tarjetas generadas', valor: estadisticas.value.total, icono: 'pi pi-id-card', color: '#2563eb', fondo: '#dbeafe' },
+  { titulo: 'Generadas hoy', valor: estadisticas.value.hoy, icono: 'pi pi-calendar', color: '#16a34a', fondo: '#dcfce7' },
+  { titulo: 'Puestos distintos', valor: estadisticas.value.puestos, icono: 'pi pi-briefcase', color: '#9333ea', fondo: '#f3e8ff' },
+  { titulo: 'Con fotografía', valor: estadisticas.value.conFoto, icono: 'pi pi-camera', color: '#ea580c', fondo: '#ffedd5' }
 ])
 </script>
 
 <template>
-  <div class="grid grid-4" style="margin-bottom:1.25rem">
-    <div v-for="t in tarjetas" :key="t.titulo" class="panel stat">
-      <div>
-        <span class="stat-titulo">{{ t.titulo }}</span>
-        <div class="stat-valor">{{ t.valor }}</div>
-      </div>
-      <div class="stat-icono" :style="{ background: t.fondo, color: t.color }"><i :class="t.icono"></i></div>
-    </div>
+  <div class="grid grid-4 mb">
+    <StatCard v-for="i in indicadores" :key="i.titulo" v-bind="i" />
   </div>
 
   <div class="grid grid-2">
-    <section class="panel">
-      <h2 class="panel-title">Bienvenido</h2>
-      <p style="line-height:1.6; color:#475569; margin-top:0">
-        Este sistema genera la <b>tarjeta digital de un empleado</b>: calcula su RFC a partir del nombre y la fecha
-        de nacimiento, y crea una credencial con <b>código QR</b> y código de barras que se puede descargar como imagen.
-      </p>
-      <ol style="line-height:1.9; color:#475569; padding-left:1.2rem">
-        <li>Entra al módulo <b>Tarjeta Digital</b>.</li>
-        <li>Captura nombre, apellidos y fecha de nacimiento.</li>
-        <li>Presiona <b>GENERAR</b> y descarga la tarjeta.</li>
-      </ol>
-      <div style="display:flex; gap:.75rem; flex-wrap:wrap; margin-top:1rem">
-        <RouterLink to="/tarjeta"><Button label="Generar tarjeta" icon="pi pi-plus" class="btn-generar" /></RouterLink>
-        <RouterLink to="/empleados"><Button label="Ver empleados" icon="pi pi-users" outlined /></RouterLink>
-      </div>
-      <div class="tech">
-        <span><i class="pi pi-code"></i> Vue 3</span>
-        <span><i class="pi pi-prime"></i> PrimeVue 4</span>
-        <span><i class="pi pi-qrcode"></i> qrcode.vue</span>
-        <span><i class="pi pi-barcode"></i> JsBarcode</span>
-      </div>
-    </section>
+    <div class="grid">
+      <section class="panel">
+        <h2 class="panel-titulo">Bienvenido</h2>
+        <p class="intro">
+          Este sistema genera la <b>tarjeta digital de un empleado</b>: calcula su RFC a partir del nombre y la
+          fecha de nacimiento y crea una credencial con <b>código QR</b> y código de barras, que se puede
+          descargar en PNG o PDF.
+        </p>
+        <ol class="pasos">
+          <li>Entra al módulo <b>Tarjeta Digital</b>.</li>
+          <li>Captura nombre, apellidos, fecha de nacimiento y puesto.</li>
+          <li>Presiona <b>GENERAR</b> y descarga la tarjeta.</li>
+        </ol>
+        <div class="acciones">
+          <RouterLink :to="{ name: 'tarjeta' }"><Button label="Generar tarjeta" icon="pi pi-plus" class="boton-exito" /></RouterLink>
+          <RouterLink :to="{ name: 'empleados' }"><Button label="Ver empleados" icon="pi pi-users" outlined /></RouterLink>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-encabezado">
+          <h2 class="panel-titulo">Registros recientes</h2>
+          <RouterLink v-if="empleados.length" :to="{ name: 'empleados' }" class="enlace">Ver todos</RouterLink>
+        </div>
+        <ul v-if="recientes.length" class="lista">
+          <li v-for="e in recientes" :key="e.id">
+            <RouterLink :to="{ name: 'tarjeta', params: { id: e.id } }" class="fila">
+              <EmpleadoAvatar :empleado="e" />
+              <div class="info">
+                <strong>{{ e.nombre }} {{ e.paterno }} {{ e.materno }}</strong>
+                <span class="monoespaciado">{{ e.rfc }}</span>
+              </div>
+              <i class="pi pi-angle-right texto-suave"></i>
+            </RouterLink>
+          </li>
+        </ul>
+        <p v-else class="texto-suave">Todavía no hay tarjetas. ¡Genera la primera!</p>
+      </section>
+    </div>
 
     <section class="panel">
-      <h2 class="panel-title">{{ ultimo ? 'Última tarjeta generada' : 'Tarjeta de ejemplo' }}</h2>
-      <TarjetaDigital :empleado="ultimo || { nombre: 'Susana', paterno: 'Rojas', materno: 'Merida', puesto: 'Empleada', rfc: 'ROMS920822JK7', fechaNacimiento: '1992-08-22T12:00:00' }" />
+      <h2 class="panel-titulo">{{ ultimo ? 'Última tarjeta generada' : 'Tarjeta de ejemplo' }}</h2>
+      <TarjetaDigital :empleado="ultimo || EMPLEADO_EJEMPLO" />
     </section>
   </div>
 </template>
 
 <style scoped>
-.stat { display: flex; justify-content: space-between; align-items: center; }
-.stat-titulo { color: #64748b; font-size: .85rem; font-weight: 500; }
-.stat-valor { font-size: 1.8rem; font-weight: 700; color: #1e293b; margin-top: .25rem; }
-.stat-icono { width: 48px; height: 48px; border-radius: 10px; display: grid; place-items: center; font-size: 1.3rem; }
-.tech { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1.5rem; }
-.tech span { background: #f1f5f9; padding: .35rem .7rem; border-radius: 999px; font-size: .8rem; color: #475569; }
+.intro { margin-top: 0; line-height: 1.6; color: #475569; }
+.pasos { padding-left: 1.2rem; line-height: 1.9; color: #475569; }
+.enlace { color: #2563eb; font-weight: 500; }
+.lista { list-style: none; margin: 0; padding: 0; }
+.fila { display: flex; align-items: center; gap: .75rem; padding: .6rem .5rem; border-radius: 8px; }
+.fila:hover { background: #f8fafc; }
+.info { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+.info strong { font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.info span { font-size: .8rem; color: var(--color-texto-suave); }
 </style>

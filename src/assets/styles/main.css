@@ -1,0 +1,93 @@
+/* Estilos globales: base, layout y clases reutilizables.
+   Los estilos propios de cada componente están dentro del componente (scoped). */
+
+:root {
+  --color-fondo: #eef2f7;
+  --color-superficie: #ffffff;
+  --color-texto: #1f2937;
+  --color-texto-suave: #64748b;
+  --color-borde: #e2e8f0;
+  --color-marca: #0f2a5c;
+  --color-exito: #22c55e;
+  --color-exito-hover: #16a34a;
+  --radio: 12px;
+  --sombra: 0 2px 8px rgba(15, 23, 42, .05);
+  --alto-topbar: 64px;
+  --ancho-sidebar: 250px;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 14px;
+  background: var(--color-fondo);
+  color: var(--color-texto);
+}
+
+a { color: inherit; text-decoration: none; }
+
+/* ---------- Bloques reutilizables ---------- */
+.panel {
+  background: var(--color-superficie);
+  border-radius: var(--radio);
+  padding: 1.5rem;
+  box-shadow: var(--sombra);
+}
+
+.panel-titulo {
+  margin: 0 0 1.25rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .02em;
+  color: #1e293b;
+}
+
+.panel-encabezado {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.25rem;
+}
+.panel-encabezado .panel-titulo { margin: 0; }
+
+.grid { display: grid; gap: 1.25rem; }
+.grid-2 { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); align-items: start; }
+.grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.mb { margin-bottom: 1.25rem; }
+
+.campo { display: flex; flex-direction: column; gap: .4rem; margin-bottom: 1rem; }
+.campo label { font-size: .85rem; font-weight: 500; color: #334155; }
+.campo .error { font-size: .78rem; color: #dc2626; }
+.fila-campos { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+.acciones { display: flex; gap: .75rem; flex-wrap: wrap; }
+
+.texto-suave { color: var(--color-texto-suave); }
+.monoespaciado { font-family: 'Courier New', monospace; font-weight: 700; letter-spacing: .06em; }
+
+/* Botón verde del mockup */
+.p-button.boton-exito {
+  background: var(--color-exito);
+  border-color: var(--color-exito);
+  font-weight: 700;
+  letter-spacing: .03em;
+}
+.p-button.boton-exito:not(:disabled):hover {
+  background: var(--color-exito-hover);
+  border-color: var(--color-exito-hover);
+}
+
+@media (max-width: 1100px) {
+  .grid-2 { grid-template-columns: 1fr; }
+  .grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 560px) {
+  .grid-4, .fila-campos { grid-template-columns: 1fr; }
+  .panel { padding: 1.1rem; }
+}

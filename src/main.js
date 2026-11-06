@@ -1,28 +1,26 @@
 import { createApp } from 'vue'
 import PrimeVue from 'primevue/config'
-import Aura from '@primeuix/themes/aura'
-import { definePreset } from '@primeuix/themes'
 import ToastService from 'primevue/toastservice'
+import ConfirmationService from 'primevue/confirmationservice'
 import Tooltip from 'primevue/tooltip'
+
+// Fuentes locales (no dependen de internet y se incluyen al descargar la tarjeta)
+import '@fontsource/inter/400.css'
+import '@fontsource/inter/500.css'
+import '@fontsource/inter/600.css'
+import '@fontsource/inter/700.css'
+import '@fontsource/inter/800.css'
 import 'primeicons/primeicons.css'
-import './styles.css'
+import '@/assets/styles/main.css'
 
 import App from './App.vue'
 import router from './router'
-
-// Tema Aura con color primario azul (como el mockup)
-const Tema = definePreset(Aura, {
-  semantic: {
-    primary: {
-      50: '{blue.50}', 100: '{blue.100}', 200: '{blue.200}', 300: '{blue.300}', 400: '{blue.400}',
-      500: '{blue.500}', 600: '{blue.600}', 700: '{blue.700}', 800: '{blue.800}', 900: '{blue.900}', 950: '{blue.950}'
-    }
-  }
-})
+import { opcionesPrimeVue } from './config/theme'
 
 createApp(App)
-  .use(PrimeVue, { theme: { preset: Tema, options: { darkModeSelector: '.app-dark' } } })
+  .use(PrimeVue, opcionesPrimeVue)
   .use(ToastService)
+  .use(ConfirmationService)
   .directive('tooltip', Tooltip)
   .use(router)
   .mount('#app')
