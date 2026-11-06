@@ -4,8 +4,8 @@ import vue from '@vitejs/plugin-vue'
 
 export default defineConfig({
   plugins: [vue()],
-  // base './' permite publicar en GitHub Pages con cualquier nombre de repositorio
-  base: './',
+  // Vercel sirve la app desde la raíz del dominio
+  base: '/',
   resolve: {
     alias: { '@': fileURLToPath(new URL('./src', import.meta.url)) }
   },

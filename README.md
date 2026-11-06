@@ -66,8 +66,39 @@ npm test        # corre las pruebas del RFC y validaciones
 npm run build   # genera la versión de producción en /dist
 ```
 
-## Publicación
-Cada `git push` a la rama `main` publica la app en GitHub Pages
-(workflow en `.github/workflows/deploy.yml`).
+## Publicación (Vercel)
 
-URL: `https://<tu-usuario>.github.io/tarjeta-empleado/`
+El proyecto está configurado para desplegarse en **Vercel** (`vercel.json`).
+Cada `git push` a la rama `main` vuelve a publicar la app automáticamente.
+
+| Dato | Valor |
+|---|---|
+| Repositorio | https://github.com/usuario123-boop/Practica_Tarjeta |
+| Dominio gratuito (URL) | https://practica-tarjeta.vercel.app |
+
+Pasos para vincularlo:
+
+1. Entrar a [vercel.com](https://vercel.com) e iniciar sesión con la cuenta de GitHub.
+2. **Add New → Project** y seleccionar el repositorio `Practica_Tarjeta`.
+3. Dejar **Root Directory** en la raíz: `package.json` y `vercel.json` ya están ahí.
+4. Vercel detecta Vite solo: *Build Command* `npm run build`, *Output Directory* `dist`.
+5. **Deploy**. Al terminar entrega la URL pública gratuita.
+
+## Evidencia de la práctica
+
+En `docs/` está el documento de entrega con la hoja de presentación, los datos del
+repositorio, la URL pública y las impresiones de pantalla del navegador:
+
+| Archivo | Contenido |
+|---|---|
+| `docs/Evidencia-Tarjeta-Digital-Empleado.pdf` | Documento final para entregar |
+| `docs/Evidencia-Tarjeta-Digital-Empleado.docx` | La misma evidencia en Word, por si hay que editarla |
+| `docs/evidencia/*.png` | Capturas de cada módulo |
+| `docs/generar-evidencia.py` | Script que arma el PDF y el Word a partir de las capturas |
+
+Para regenerar los documentos (por ejemplo, después de reemplazar una captura):
+
+```bash
+pip install reportlab python-docx pillow
+python docs/generar-evidencia.py
+```
