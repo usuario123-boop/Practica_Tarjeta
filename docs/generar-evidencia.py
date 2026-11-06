@@ -53,20 +53,46 @@ CAPTURAS = [
      'Pantalla principal. Muestra los indicadores (tarjetas generadas, generadas '
      'hoy, puestos distintos y tarjetas con fotografía), los registros recientes '
      'y la última tarjeta digital generada.'),
-    ('02-tarjeta-digital.png', 'Módulo Tarjeta Digital',
+    ('02-demo-clientes.png', 'Demo Clientes',
      'Formulario para capturar nombre(s), apellidos, fecha de nacimiento y puesto. '
      'El RFC se calcula automáticamente con el algoritmo del SAT (13 caracteres, '
-     'con homoclave y dígito verificador) y la credencial se genera en tiempo real '
-     'con código QR y código de barras; puede descargarse en PNG o PDF.'),
-    ('03-empleados.png', 'Módulo Empleados',
-     'Tabla de PrimeVue con búsqueda global, ordenamiento por columna, paginación, '
-     'edición, eliminación con confirmación y exportación a CSV.'),
-    ('04-graficas.png', 'Módulo Gráficas',
-     'Gráficas de barras generadas con Chart.js: empleados por puesto, por rango de '
-     'edad y tarjetas generadas durante los últimos siete días.'),
-    ('05-barcode-qr.png', 'Módulo BarCode-QR',
+     'con homoclave y dígito verificador) y la tarjeta digital se genera en tiempo '
+     'real con código QR y código de barras; puede descargarse en PNG o PDF.'),
+    ('03-barcode-qr.png', 'BarCode-QR',
      'Generador independiente de códigos QR y de barras (CODE128, CODE39, EAN-13 y '
      'UPC) con color y tamaño configurables, descargable en PNG.'),
+    ('04-empleados.png', 'Empleados',
+     'Tabla con los empleados registrados: búsqueda global, ordenamiento, '
+     'paginación, edición, eliminación con confirmación y exportación a CSV.'),
+    ('05-graficas.png', 'Gráficas',
+     'Gráficas de barras generadas con Chart.js: empleados por puesto, por rango de '
+     'edad y tarjetas generadas durante los últimos siete días.'),
+    ('06-input.png', 'Input',
+     'Componentes de captura de PrimeVue: InputText, InputNumber, InputMask, '
+     'Password, Textarea, InputGroup, Select, MultiSelect, AutoComplete, DatePicker, '
+     'Checkbox, RadioButton, ToggleSwitch, Slider, Rating y Knob.'),
+    ('07-float-label.png', 'Float Label',
+     'Etiquetas flotantes en sus tres variantes (over, in y on) y el componente '
+     'IftaLabel: la etiqueta vive dentro del campo y se desplaza al escribir.'),
+    ('08-invalid-state.png', 'Invalid State',
+     'Formulario con validación en vivo. Al enviarlo incompleto, cada componente se '
+     'marca en rojo con la propiedad :invalid y muestra su mensaje de error.'),
+    ('09-button.png', 'Button',
+     'Variantes del componente Button: colores (severity), estilos, tamaños, estado '
+     'deshabilitado y de carga, iconos, ButtonGroup, SplitButton, ToggleButton, '
+     'SelectButton y SpeedDial.'),
+    ('10-table.png', 'Table',
+     'DataTable con búsqueda global, filtros por columna, ordenamiento, paginación, '
+     'selección múltiple, filas expandibles y pie con el total acumulado.'),
+    ('11-list.png', 'List',
+     'Componentes de listas: Listbox con filtro, OrderList para reordenar, DataView '
+     'con vista de cuadrícula y de lista, y PickList para mover elementos.'),
+    ('12-tree.png', 'Tree',
+     'Datos jerárquicos: Tree con casillas y filtro, Tree de selección simple, '
+     'TreeSelect desplegable y TreeTable, que combina el árbol con columnas.'),
+    ('13-panel.png', 'Panel',
+     'Contenedores de PrimeVue: Toolbar, Panel plegable, Fieldset, Tabs, Accordion, '
+     'Card, Divider, Splitter, ScrollPanel y Fluid.'),
 ]
 
 AZUL = colors.HexColor('#0f2a5c')
@@ -230,30 +256,7 @@ def construir_pdf(destino):
     ]))
     f += [tabla, Spacer(1, 0.55 * cm)]
 
-    modulos = [('Dashboard', 'Indicadores, registros recientes y última tarjeta generada.'),
-               ('Tarjeta Digital', 'Captura de datos, cálculo del RFC y descarga en PNG o PDF.'),
-               ('Empleados', 'Tabla con búsqueda, orden, edición, baja y exportación a CSV.'),
-               ('BarCode-QR', 'Generador de códigos QR y de barras configurables.'),
-               ('Gráficas', 'Estadísticas por puesto, por rango de edad y por día.')]
-    t2_tabla = Table([[Paragraph('<b>Módulo</b>', st['celda']),
-                       Paragraph('<b>Función</b>', st['celda'])]] +
-                     [[Paragraph(a, st['celda_b']), Paragraph(b, st['celda'])]
-                      for a, b in modulos],
-                     colWidths=[util * 0.3, util * 0.7])
-    t2_tabla.setStyle(TableStyle([
-        ('VALIGN', (0, 0), (-1, -1), 'TOP'),
-        ('GRID', (0, 0), (-1, -1), 0.6, BORDE),
-        ('BACKGROUND', (0, 0), (-1, 0), AZUL),
-        ('TEXTCOLOR', (0, 0), (-1, 0), colors.white),
-        ('LEFTPADDING', (0, 0), (-1, -1), 8),
-        ('RIGHTPADDING', (0, 0), (-1, -1), 8),
-        ('TOPPADDING', (0, 0), (-1, -1), 6),
-        ('BOTTOMPADDING', (0, 0), (-1, -1), 6),
-    ]))
-    f += [Paragraph('2. Módulos de la aplicación', st['h2']),
-          t2_tabla, Spacer(1, 0.4 * cm)]
-
-    f += [Paragraph('3. Descripción de la solución', st['h2']),
+    f += [Paragraph('2. Descripción de la solución', st['h2']),
           Paragraph(
               'Se construyó una interfaz de usuario de una sola página (SPA) con '
               '<b>Vue 3</b> y la biblioteca de componentes <b>PrimeVue 4</b>. La '
@@ -272,7 +275,38 @@ def construir_pdf(destino):
               'publicado en <b>Vercel</b>, que entrega el dominio gratuito indicado '
               'arriba y vuelve a desplegarlo con cada actualización del repositorio.',
               st['cuerpo']),
+          PageBreak()]
+    modulos = [('Dashboard', 'Indicadores, registros recientes y última tarjeta generada.'),
+               ('Demo Clientes', 'Captura de datos, cálculo del RFC y descarga en PNG o PDF.'),
+               ('BarCode-QR', 'Generador de códigos QR y de barras configurables.'),
+               ('Empleados', 'Tabla con búsqueda, orden, edición, baja y exportación a CSV.'),
+               ('Gráficas', 'Estadísticas por puesto, por rango de edad y por día.'),
+               ('Input', 'Componentes de captura de datos de PrimeVue.'),
+               ('Float Label', 'Etiquetas flotantes (variantes over, in y on) e IftaLabel.'),
+               ('Invalid State', 'Validación en vivo con la propiedad :invalid.'),
+               ('Button', 'Variantes, tamaños, grupos y menús de botones.'),
+               ('Table', 'DataTable con filtros, orden, selección y filas expandibles.'),
+               ('List', 'Listbox, OrderList, DataView y PickList.'),
+               ('Tree', 'Tree, TreeSelect y TreeTable con el organigrama.'),
+               ('Panel', 'Toolbar, Panel, Fieldset, Tabs, Accordion, Card y Splitter.')]
+    t2_tabla = Table([[Paragraph('<b>Módulo</b>', st['celda']),
+                       Paragraph('<b>Función</b>', st['celda'])]] +
+                     [[Paragraph(a, st['celda_b']), Paragraph(b, st['celda'])]
+                      for a, b in modulos],
+                     colWidths=[util * 0.3, util * 0.7])
+    t2_tabla.setStyle(TableStyle([
+        ('VALIGN', (0, 0), (-1, -1), 'TOP'),
+        ('GRID', (0, 0), (-1, -1), 0.6, BORDE),
+        ('BACKGROUND', (0, 0), (-1, 0), AZUL),
+        ('TEXTCOLOR', (0, 0), (-1, 0), colors.white),
+        ('LEFTPADDING', (0, 0), (-1, -1), 8),
+        ('RIGHTPADDING', (0, 0), (-1, -1), 8),
+        ('TOPPADDING', (0, 0), (-1, -1), 6),
+        ('BOTTOMPADDING', (0, 0), (-1, -1), 6),
+    ]))
+    f += [Paragraph('3. Módulos de la aplicación', st['h2']), t2_tabla,
           NextPageTemplate('captura'), PageBreak()]
+
 
     # ---------------- Capturas ----------------
     cap = ParagraphStyle('cap', parent=st['pie_img'], fontSize=9.5, leading=14)
@@ -408,17 +442,7 @@ def construir_docx(destino):
         ('Alumno', '%s — %s' % (DATOS['alumno'], DATOS['grado'])),
     ])
 
-    h2('2. Módulos de la aplicación')
-    tabla([
-        ('Módulo', 'Función'),
-        ('Dashboard', 'Indicadores, registros recientes y última tarjeta generada.'),
-        ('Tarjeta Digital', 'Captura de datos, cálculo del RFC y descarga en PNG o PDF.'),
-        ('Empleados', 'Tabla con búsqueda, orden, edición, baja y exportación a CSV.'),
-        ('BarCode-QR', 'Generador de códigos QR y de barras configurables.'),
-        ('Gráficas', 'Estadísticas por puesto, por rango de edad y por día.'),
-    ], encabezado=True)
-
-    h2('3. Descripción de la solución')
+    h2('2. Descripción de la solución')
     justificado(
         'Se construyó una interfaz de usuario de una sola página (SPA) con Vue 3 y la '
         'biblioteca de componentes PrimeVue 4. La aplicación genera la tarjeta digital '
@@ -434,6 +458,24 @@ def construir_docx(destino):
         'servidor ni base de datos. El proyecto está publicado en Vercel, que entrega '
         'el dominio gratuito indicado arriba y vuelve a desplegarlo con cada '
         'actualización del repositorio.')
+
+    h2('3. Módulos de la aplicación')
+    tabla([
+        ('Módulo', 'Función'),
+        ('Dashboard', 'Indicadores, registros recientes y última tarjeta generada.'),
+        ('Demo Clientes', 'Captura de datos, cálculo del RFC y descarga en PNG o PDF.'),
+        ('BarCode-QR', 'Generador de códigos QR y de barras configurables.'),
+        ('Empleados', 'Tabla con búsqueda, orden, edición, baja y exportación a CSV.'),
+        ('Gráficas', 'Estadísticas por puesto, por rango de edad y por día.'),
+        ('Input', 'Componentes de captura de datos de PrimeVue.'),
+        ('Float Label', 'Etiquetas flotantes (variantes over, in y on) e IftaLabel.'),
+        ('Invalid State', 'Validación en vivo con la propiedad :invalid.'),
+        ('Button', 'Variantes, tamaños, grupos y menús de botones.'),
+        ('Table', 'DataTable con filtros, orden, selección y filas expandibles.'),
+        ('List', 'Listbox, OrderList, DataView y PickList.'),
+        ('Tree', 'Tree, TreeSelect y TreeTable con el organigrama.'),
+        ('Panel', 'Toolbar, Panel, Fieldset, Tabs, Accordion, Card y Splitter.'),
+    ], encabezado=True)
 
     # ---------------- Capturas (páginas horizontales) ----------------
     hor = d.add_section(WD_SECTION.NEW_PAGE)

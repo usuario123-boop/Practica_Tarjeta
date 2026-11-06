@@ -12,10 +12,24 @@ El RFC se calcula automáticamente a partir del nombre, los apellidos y la fecha
 | Módulo | Qué hace |
 |---|---|
 | **Dashboard** | Indicadores, registros recientes y la última tarjeta generada |
-| **Tarjeta Digital** | Formulario con validación, cálculo del RFC, foto opcional, tarjeta con QR y código de barras, descarga en **PNG** (alta resolución) y **PDF** (tamaño credencial 54 × 85.6 mm), edición de empleados |
-| **Empleados** | Tabla con búsqueda, orden, edición, eliminación con confirmación y exportación a CSV (Excel) |
+| **Demo Clientes** | Formulario con validación, cálculo del RFC, foto opcional, tarjeta con QR y código de barras, descarga en **PNG** (alta resolución) y **PDF** (tamaño credencial 54 × 85.6 mm), edición de empleados |
 | **BarCode-QR** | Generador libre de códigos QR y de barras (CODE128, CODE39, EAN-13, UPC) con color y tamaño, descargable en PNG |
+| **Empleados** | Tabla con búsqueda, orden, edición, eliminación con confirmación y exportación a CSV (Excel) |
 | **Gráficas** | Empleados por puesto, por rango de edad y tarjetas generadas en los últimos 7 días |
+
+Además, el menú incluye los módulos de demostración de componentes de PrimeVue que
+aparecen en el mockup de la práctica:
+
+| Módulo | Componentes que muestra |
+|---|---|
+| **Input** | InputText, InputNumber, InputMask, Password, Textarea, InputGroup, Select, MultiSelect, AutoComplete, DatePicker, Checkbox, RadioButton, ToggleSwitch, Slider, Rating, Knob |
+| **Float Label** | FloatLabel en sus variantes `over`, `in` y `on`, además de IftaLabel |
+| **Invalid State** | Formulario con validación en vivo: cada componente se marca con `:invalid` |
+| **Button** | Colores, estilos, tamaños, carga, iconos, ButtonGroup, SplitButton, ToggleButton, SelectButton, SpeedDial |
+| **Table** | DataTable con filtros por columna, orden, paginación, selección y filas expandibles |
+| **List** | Listbox, OrderList, DataView (lista y cuadrícula) y PickList |
+| **Tree** | Tree con casillas y filtro, TreeSelect y TreeTable |
+| **Panel** | Toolbar, Panel, Fieldset, Tabs, Accordion, Card, Divider, Splitter, ScrollPanel, Fluid |
 
 El código QR de la tarjeta usa el formato **vCard**: al escanearlo con el celular aparece el contacto
 del empleado (nombre, puesto, empresa, fecha de nacimiento y RFC).
@@ -34,10 +48,11 @@ src/
 ├── App.vue                  # Raíz: layout + Toast + ConfirmDialog
 ├── assets/styles/main.css   # Estilos globales y clases reutilizables
 ├── config/                  # Tema de PrimeVue (en español) y menú lateral
-├── constants/               # Datos fijos: app, empresa, puestos
+├── constants/               # Datos fijos: app, empresa, puestos, datos de demo
 ├── layout/                  # AppLayout, AppTopbar, AppSidebar
 ├── router/                  # Rutas (carga diferida de cada vista)
 ├── views/                   # Una vista por módulo del menú
+│   └── demos/               # Módulos de demostración de PrimeVue
 ├── components/
 │   ├── tarjeta/             # TarjetaDigital (la credencial)
 │   ├── empleado/            # EmpleadoForm, EmpleadoAvatar

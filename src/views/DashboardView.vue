@@ -35,7 +35,7 @@ const indicadores = computed(() => [
           descargar en PNG o PDF.
         </p>
         <ol class="pasos">
-          <li>Entra al módulo <b>Tarjeta Digital</b>.</li>
+          <li>Entra al módulo <b>Demo Clientes</b>.</li>
           <li>Captura nombre, apellidos, fecha de nacimiento y puesto.</li>
           <li>Presiona <b>GENERAR</b> y descarga la tarjeta.</li>
         </ol>

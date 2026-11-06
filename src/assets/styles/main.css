@@ -63,6 +63,13 @@ a { color: inherit; text-decoration: none; }
 .campo { display: flex; flex-direction: column; gap: .4rem; margin-bottom: 1rem; }
 .campo label { font-size: .85rem; font-weight: 500; color: #334155; }
 .campo .error { font-size: .78rem; color: #dc2626; }
+
+/* Password y AutoComplete envuelven su <input> en otro elemento,
+   así que hay que estirarlos para que midan lo mismo que el resto de campos. */
+.campo .p-password,
+.campo .p-autocomplete { width: 100%; }
+.campo .p-password input,
+.campo .p-autocomplete input { width: 100%; }
 .fila-campos { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
 
 .acciones { display: flex; gap: .75rem; flex-wrap: wrap; }
