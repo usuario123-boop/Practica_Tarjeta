@@ -25,17 +25,14 @@ async function capturarPNG (elemento, escala = 4) {
 
 export function useDescarga () {
   const descargando = ref(false)
-  const error = ref('')
 
   async function ejecutar (tarea) {
     descargando.value = true
-    error.value = ''
     try {
       await tarea()
       return true
     } catch (e) {
       console.error(e)
-      error.value = 'No se pudo generar el archivo. Intenta de nuevo.'
       return false
     } finally {
       descargando.value = false
@@ -59,5 +56,5 @@ export function useDescarga () {
     pdf.save(`${nombre}.pdf`)
   })
 
-  return { descargando, error, descargarPNG, descargarPDF }
+  return { descargando, descargarPNG, descargarPDF }
 }

@@ -9,7 +9,6 @@ const props = defineProps({
   alto: { type: Number, default: 34 },
   grosor: { type: Number, default: 1.3 },
   color: { type: String, default: '#0f172a' },
-  mostrarTexto: { type: Boolean, default: true },
   tamanoTexto: { type: Number, default: 11 }
 })
 
@@ -26,7 +25,7 @@ function dibujar () {
         height: props.alto,
         width: props.grosor,
         lineColor: props.color,
-        displayValue: props.mostrarTexto,
+        displayValue: true,
         fontSize: props.tamanoTexto,
         font: 'Inter, sans-serif',
         textMargin: 2,

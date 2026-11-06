@@ -8,8 +8,7 @@ import { crearVCard } from '@/utils/vcard'
 // Tarjeta (credencial) del empleado.
 // Los íconos son SVG dentro del componente para que se vean igual al descargarla.
 const props = defineProps({
-  empleado: { type: Object, required: true },
-  empresa: { type: Object, default: () => EMPRESA }
+  empleado: { type: Object, required: true }
 })
 
 const elemento = ref(null)
@@ -21,7 +20,7 @@ const apellidos = computed(() =>
 )
 const puesto = computed(() => props.empleado.puesto || 'Empleado')
 const rfc = computed(() => props.empleado.rfc || 'XXXX000000XXX')
-const contenidoQR = computed(() => crearVCard({ ...props.empleado, rfc: rfc.value }, props.empresa))
+const contenidoQR = computed(() => crearVCard({ ...props.empleado, rfc: rfc.value }, EMPRESA))
 </script>
 
 <template>
@@ -41,8 +40,8 @@ const contenidoQR = computed(() => crearVCard({ ...props.empleado, rfc: rfc.valu
         </svg>
       </div>
       <div>
-        <strong>{{ empresa.nombre }}</strong>
-        <span>{{ empresa.lema }}</span>
+        <strong>{{ EMPRESA.nombre }}</strong>
+        <span>{{ EMPRESA.lema }}</span>
       </div>
     </header>
 

@@ -2,7 +2,7 @@ import Aura from '@primeuix/themes/aura'
 import { definePreset } from '@primeuix/themes'
 
 // Tema Aura de PrimeVue con el azul como color primario (igual que el mockup)
-export const TemaPrincipal = definePreset(Aura, {
+const TemaPrincipal = definePreset(Aura, {
   semantic: {
     primary: {
       50: '{blue.50}',

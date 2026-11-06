@@ -50,7 +50,7 @@ export function obtenerLetras (nombre, paterno, materno) {
 }
 
 /** Fecha en formato AAMMDD. */
-export function obtenerFecha (fechaNacimiento) {
+function obtenerFecha (fechaNacimiento) {
   const d = deFechaISO(fechaNacimiento)
   if (!d) return ''
   return String(d.getFullYear()).slice(-2) +
@@ -71,7 +71,7 @@ function valorHomoclave (c) {
 }
 
 /** Homoclave de 2 caracteres calculada sobre el nombre completo. */
-export function obtenerHomoclave (nombre, paterno, materno) {
+function obtenerHomoclave (nombre, paterno, materno) {
   const completo = [paterno, materno, nombre].map(normalizar).filter(Boolean).join(' ')
   const cadena = '0' + [...completo].map(valorHomoclave).join('')
 
@@ -84,7 +84,7 @@ export function obtenerHomoclave (nombre, paterno, materno) {
 }
 
 /** Dígito verificador calculado sobre los primeros 12 caracteres. */
-export function obtenerDigitoVerificador (rfc12) {
+function obtenerDigitoVerificador (rfc12) {
   let suma = 0
   for (let i = 0; i < 12; i++) {
     suma += TABLA_VERIFICADOR.indexOf(rfc12[i]) * (13 - i)
